@@ -37,7 +37,7 @@ pip install colorama
 
 ## 📁 Usage
 
-1. Extract your entire cache using Nirsoft's ChromeCacheView app
+1. Extract your entire cache using ![Nirsoft's ChromeCacheView](https://www.nirsoft.net/utils/chrome_cache_view.html) app
 2. Place all your exported files in the same directory as the script.
 3. Run the script:
 ```bash
