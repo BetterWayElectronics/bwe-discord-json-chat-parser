@@ -82,7 +82,7 @@ SETTINGS = {
 ## 📊 Output Example
 
 - HTML Transcript:
-  - Includes timestamps, author names, content, mentions, attachments, and embeds.
+  - Includes original source filename, channel ID's, timestamps, author names, content, mentions, attachments, and embeds.
 - `stats.txt`:
   - Summary of participants, channel IDs, and file types.
 
