@@ -41,7 +41,7 @@ pip install colorama
 2. Place all your exported files in the same directory as the script.
 3. Run the script:
 ```bash
-python bwe_discord_parser.py
+python bwe_discord_json_parser.py
 ```
 4. If an `Output/` folder already exists, you'll be prompted to:
    - **(R)** Rescan and regenerate all output files
