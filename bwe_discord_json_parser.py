@@ -82,21 +82,47 @@ def format_message(msg):
     attachments = msg.get("attachments", [])
     att_str = ""
     if attachments:
-        if SETTINGS.get("embed_images"):
-            att_str = "<br><em>Attachments:</em> " + "<br>".join(
-                [f'<a href="{att.get("url", "#")}">{att.get("filename", "attachment")}</a>' for att in attachments]
+        att_str = "<br><em>Attachments:</em> " + "<br>".join([
+            (
+                f'<img src="{att.get("url", "#")}" alt="{att.get("filename", "attachment")}" style="max-width:500px;"><br>'
+                f'<a href="{att.get("url", "#")}">{att.get("filename", "attachment")}</a>'
+                if not SETTINGS.get("embed_images") else
+                f'<a href="{att.get("url", "#")}">{att.get("filename", "attachment")}</a>'
             )
-        else:
-            att_str = "<br><em>Attachments:</em> " + "<br>".join(
-                [f'<img src="{att.get("url", "#")}" alt="{att.get("filename", "attachment")}" style="max-width:500px;">' for att in attachments]
-            )
+            for att in attachments
+        ])
+
     # Process embeds.
     embeds = msg.get("embeds", [])
     embed_str = ""
     if embeds:
-        embed_str = "<br><em>Embeds:</em> " + "<br>".join(
-            [f'<a href="{embed.get("url", "#")}">Embed</a>' for embed in embeds if embed.get("url")]
-        )
+        embed_items = []
+        for embed in embeds:
+            url = embed.get("url") or embed.get("thumbnail", {}).get("url") or embed.get("image", {}).get("url")
+            if embed.get("image") and embed["image"].get("url"):
+                img_url = embed["image"]["url"]
+                embed_items.append(
+                    f'<img src="{img_url}" alt="embed image" style="max-width:500px;"><br>'
+                    f'<a href="{img_url}">{img_url}</a>'
+                )
+            elif embed.get("thumbnail") and embed["thumbnail"].get("url"):
+                thumb_url = embed["thumbnail"]["url"]
+                embed_items.append(
+                    f'<img src="{thumb_url}" alt="embed thumbnail" style="max-width:500px;"><br>'
+                    f'<a href="{thumb_url}">{thumb_url}</a>'
+                )
+            elif embed.get("title") and embed.get("url"):
+                embed_items.append(
+                    f'<a href="{embed["url"]}">{embed["title"]}</a>'
+                )
+            elif url:
+                embed_items.append(
+                    f'<a href="{url}">{url}</a>'
+                )
+        if embed_items:
+            embed_str = "<br><em>Embeds:</em> " + "<br>".join(embed_items)
+
+
     html = (
         f'<div class="message"><span class="timestamp">[{ts}]{edited_str}</span> '
         f'<strong>{sender}</strong>: {content}{mention_str}{att_str}{embed_str}</div><hr>\n'
@@ -466,7 +492,7 @@ def main():
     while True:
         search_choice = input("\nDo You Want To Search The Output Folder For A Term? (Y/N): ").strip().lower()
         if search_choice == "y":
-            search_term = input("Enter Search Term: ").strip()
+            search_term = input("\nEnter Search Term: ").strip()
             results = search_output(search_term, output_folder)
             if results:
                 print("\nSearch Term Found In The Following File(s):")
