@@ -94,6 +94,10 @@ After processing, you can choose to search all generated `.html` files for a key
 
 ---
 
+## 😶 Limitations
+
+The cache may not be entirely up to date and because of this links for attachments and embeds may have a different hash in the URL and will thus expire. If you're able to use the Discord app itself the image/attachment is likely still alive and working in the original chat location. If possible grab the cache again at a later date as that might grab the newer url with the latest hash.
+
 ## 🖼️ Screenshot
 
 ![1](https://i.imgur.com/mmPSSAT.png)
