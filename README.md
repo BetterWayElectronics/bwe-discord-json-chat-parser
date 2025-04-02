@@ -3,7 +3,7 @@
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-A powerful and user-friendly Python application for parsing and converting Discord JSON chat exports into readable, well-formatted HTML transcripts. Supports normal chats, direct messages (DMs), and search result exports.
+A powerful and user-friendly Python application for forensically parsing and converting Discord JSON chat exports into readable, well-formatted HTML transcripts. Supports normal chats, direct messages (DMs), and search result exports.
 
 ---
 
